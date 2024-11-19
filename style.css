@@ -63,6 +63,11 @@ main {
   display: block;
 }
 
-.delete-btn [
-  
-]
+.add-btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+.delete-btn {
+
+}

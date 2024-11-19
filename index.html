@@ -10,15 +10,15 @@
     <main>
       <div class="card balance-card">
         <h2 class="card__header">BALANCE</h2>
-        <h3 class="card__num-header">$2000</h3>
+        <h3 class="card__num-header balance-display">$2000</h3>
         <div class="totals-container">
           <div class="total-income-container">
             <h4>Total Income:</h4>
-            <p>$10000</p>
+            <p class="total-income-display">$10000</p>
           </div>
           <div class="total-expenses-container">
             <h4>Total Expenses:</h4>
-            <p>$8000</p>
+            <p class="total-expenses-display">$8000</p>
           </div>
         </div>
       </div>
@@ -63,25 +63,52 @@
         </div>
         <div class="tracker-inputs">
           <div class="button-container">
-            <button class="income-button">Income</button>
-            <button class="expense-button">Expense</button>
+            <button class="income-btn">Income</button>
+            <button class="expense-btn">Expense</button>
           </div>
 
           <div class="input-label-pair">
-            <label for="">Date</label>
-            <input type="text" placeholder="Rent" />
+            <label for="date-input">Date</label>
+            <input
+              type="date"
+              placeholder="Rent"
+              class="date-input"
+              name="date-input"
+              id="date-input"
+            />
           </div>
           <div class="input-label-pair">
-            <label for="">Name</label>
-            <input type="text" placeholder="Rent" />
+            <label for="name-input">Name</label>
+            <input
+              type="text"
+              placeholder="Rent"
+              class="name-input"
+              name="name-input"
+              id="name-input"
+            />
           </div>
           <div class="input-label-pair">
-            <label for="">Amount</label>
-            <input type="text" placeholder="Rent" />
+            <label for="amount-input">Amount</label>
+            <input
+              type="number"
+              placeholder="Rent"
+              class="amount-input"
+              name="amount-input"
+              id="amount-input"
+            />
           </div>
           <div class="input-label-pair">
-            <label for="">Description</label>
-            <input type="text" placeholder="Rent" />
+            <label for="desc-input">Description</label>
+            <input
+              type="text"
+              placeholder="Rent"
+              class="desc-input"
+              name="desc-input"
+              id="desc-input"
+            />
+          </div>
+          <div class="add-btn-container">
+            <button class="add-btn">Add</button>
           </div>
         </div>
       </div>
