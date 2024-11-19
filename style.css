@@ -1,0 +1,68 @@
+/* GENERAL STYLES */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* BALANCE CARD STYLES */
+
+.card {
+  border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+}
+
+/* Makes container at bottom of balance-card a flexbox */
+.totals-container {
+  display: flex;
+}
+
+.total-income-container {
+  border-right: 1px solid black;
+  padding-right: 1rem;
+}
+
+.total-expenses-container {
+  border-left: 1px solid black;
+  padding-left: 1rem;
+}
+
+
+/* TRACKER CONTAINER STYLES */
+
+.tracker-container {
+  display: flex;
+  
+}
+.tracker-table {
+  display: flex;
+  flex-direction: column;
+}
+.tracker-inputs {
+  display: flex;
+  flex-direction: column;
+}
+.button-container {
+  display: flex;
+}
+.input-label-pair {
+  display: flex;
+  flex-direction: column;
+}
+
+.block-divider {
+  display: block;
+}
+
+.delete-btn [
+  
+]
