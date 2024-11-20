@@ -36,17 +36,16 @@ main {
   padding-left: 1rem;
 }
 
-
 /* TRACKER CONTAINER STYLES */
 
 .tracker-container {
   display: flex;
-  
 }
-.tracker-table {
+.tracker-table-container {
   display: flex;
   flex-direction: column;
 }
+
 .tracker-inputs {
   display: flex;
   flex-direction: column;
@@ -69,5 +68,7 @@ main {
 }
 
 .delete-btn {
+}
 
+.type-display {
 }
