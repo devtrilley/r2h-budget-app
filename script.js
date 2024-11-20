@@ -30,20 +30,22 @@ let typeIsIncome = true;
 
 const trackerObjects = [
   {
+    id: "uno", // Placeholder ID
     type: "Expense",
     date: "11/26/2024",
     name: "Rent",
-    amount: 1050,
+    amount: 900,
     description: "Weekly EP pay.",
-    delete: '<button class="delete-btn">Delete</button>',
+    delete: '<button class="delete-btn" id="uno">Delete</button>',
   },
   {
+    id: "dos", // Placeholder ID
     type: "Income",
     date: "11/23/2024",
     name: "Paycheck",
     amount: 1050,
     description: "Fixed expense.",
-    delete: '<button class="delete-btn">Delete</button>',
+    delete: '<button class="delete-btn" id="dos">Delete</button>',
   },
 ];
 
@@ -68,6 +70,9 @@ expenseBtn.addEventListener("click", () => {
   }
 });
 
+// id var in global scope, incremented each time addBtn is clicked. Each new number is assigned to the added trackerItems.id. This makes each object unique so we are able to target/delete them.
+let id = 1;
+
 addBtn.addEventListener("click", () => {
   if (dateInput.value === "" || dateInput.value === null) {
     alert("Please enter a valid date.");
@@ -91,21 +96,47 @@ addBtn.addEventListener("click", () => {
 
   trackerObjects.push({
     // Ternary operator to figure out whether trackerItem is an income or expense
+    id: id, //ID for each object so we are able to delete them in grid
     type: typeIsIncome ? "Income" : "Expenses",
     date: dateInput.value,
     name: nameInput.value,
     amount: amountInput.value,
     description: descInput.value,
-    delete: '<button class="delete-btn">Delete</button>',
+    delete: `<button class="delete-btn" id="${id}">Delete</button>`,
   });
 
-  tableBody.innerHTML = '';
+  tableBody.innerHTML = "";
 
   generateTableRows(trackerObjects);
 });
 
+// Event Delegation in the <tbody>
+tableBody.addEventListener("click", (e) => {
+  // If we clicked on a deleteBtn in our table
+  if (e.target.matches(".delete-btn")) {
+    // ID of the deleteBtn we clicked
+    const deleteThisId = e.target.id;
+
+    // Finding the index of trackerObjects that has an object with a matching ID to deleteThisId.
+    const indexToDelete = trackerObjects.findIndex((object) => {
+      return object.id === deleteThisId; // Value saved in indexToDelete
+    });
+
+    // -1 is returned if findIndex() can't find the ID, we relay this message
+    if (indexToDelete === -1) {
+      console.log("No matching object found");
+    } else {
+      // If there is a matching ID found, we delete the object with that index from the array with splice(), then generate the Table again.
+      trackerObjects.splice(indexToDelete, 1);
+      generateTableRows(trackerObjects);
+    }
+  }
+});
+
 // forEach to generate/update HTML on our table
 function generateTableRows(arrOfObjects) {
+  tableBody.innerHTML = "";
+
   arrOfObjects.forEach((trackerItem) => {
     // Table row that will hold the <td> elements and be appended to our Table for each object in Tracker Objects
     let tableRow = document.createElement("tr");
@@ -149,9 +180,11 @@ function generateTableRows(arrOfObjects) {
   });
 }
 
+// deleteBt;
+
 /*
 - when i click the delete button
-- we pick the row/object that delete button in apart of
+- we pick the row/object that delete button is apart of
 - then we delete that object from our array
 - then generate the HTML again
 
