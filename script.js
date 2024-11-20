@@ -23,6 +23,7 @@ const totalExpensesDisplay = document.querySelector(".total-expenses-display");
 
 // Tracker Table Elements
 const trackerTable = document.querySelector(".tracker-table");
+const tableBody = document.querySelector(".table-body");
 
 //
 let typeIsIncome = true;
@@ -34,6 +35,7 @@ const trackerObjects = [
     name: "Rent",
     amount: 1050,
     description: "Weekly EP pay.",
+    delete: '<button class="delete-btn">Delete</button>',
   },
   {
     type: "Income",
@@ -41,8 +43,12 @@ const trackerObjects = [
     name: "Paycheck",
     amount: 1050,
     description: "Fixed expense.",
+    delete: '<button class="delete-btn">Delete</button>',
   },
 ];
+
+// Generating the Table Rows as soon as the page loads, therefore no need for hard coded HTML
+generateTableRows(trackerObjects);
 
 incomeBtn.addEventListener("click", () => {
   if (typeIsIncome) {
@@ -90,18 +96,10 @@ addBtn.addEventListener("click", () => {
     name: nameInput.value,
     amount: amountInput.value,
     description: descInput.value,
+    delete: '<button class="delete-btn">Delete</button>',
   });
 
-  trackerTable.innerHTML = `<thead>
-              <tr>
-                <th>Date</th>
-                <th>Name</th>
-                <th>Amount</th>
-                <th>Description</th>
-                <th>Type</th>
-                <th>Delete</th>
-              </tr>
-            </thead>`;
+  tableBody.innerHTML = '';
 
   generateTableRows(trackerObjects);
 });
@@ -136,7 +134,7 @@ function generateTableRows(arrOfObjects) {
 
     // Delete cell and it's value change
     let deleteCell = document.createElement("td");
-    deleteCell.innerHTML = '<button class="delete-btn">Delete</button>';
+    deleteCell.innerHTML = trackerItem.delete;
 
     // Appending each <td> to the tableRow (Our <tr>)
     tableRow.appendChild(dateCell);
@@ -147,14 +145,14 @@ function generateTableRows(arrOfObjects) {
     tableRow.appendChild(deleteCell);
 
     // Appending the tableRow to our table, effectively generating a row
-    trackerTable.appendChild(tableRow);
+    tableBody.appendChild(tableRow);
   });
 }
 
 /*
-- when i click the add button
-- we figure out if it's an income (positive number) or an expense (negative number)
-- we take all the values from the inputs and place them in an object.
-- then take that object and place it in an array
+- when i click the delete button
+- we pick the row/object that delete button in apart of
+- then we delete that object from our array
+- then generate the HTML again
 
 */
