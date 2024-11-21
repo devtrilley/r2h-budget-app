@@ -130,10 +130,10 @@ addBtn.addEventListener("click", () => {
 
   // If any of the booleans are invalid, stop the function, keeping up from appending a new tracker item
   if (!isDateValid || !isNameValid || !isAmountValid || !isDescValid) {
-    return
-  };
+    return;
+  }
 
-  let newObj = { 
+  let newObj = {
     // Ternary operator to figure out whether trackerItem is an income or expense
     id: idCounter, //ID for each object so we are able to delete them in grid
     // If typeIsIncome, then display so. Otherwise, it's expenses.
@@ -157,18 +157,17 @@ addBtn.addEventListener("click", () => {
   idCounter++;
 
   if (typeIsIncome) {
-    totalIncome += newObj.amount;
+    budgetManager.addIncome(newObj.amount);
     incomeArray.push(newObj); // Push our newObj into incomeArray
   } else if (!typeIsIncome) {
-    totalExpenses += newObj.amount;
+    budgetManager.addExpense(newObj.amount);
     expenseArray.push(newObj); // Push our newObj into expenseArray
   }
 
   // We add these since expenses is a negative number
-  balance = totalIncome + totalExpenses;
-  balanceDisplay.innerHTML = balance;
-  totalIncomeDisplay.innerHTML = totalIncome;
-  totalExpensesDisplay.innerHTML = totalExpenses;
+  balanceDisplay.innerHTML = budgetManager.calcBalance();
+  totalIncomeDisplay.innerHTML = budgetManager.totalIncome;
+  totalExpensesDisplay.innerHTML = budgetManager.totalExpenses;
 });
 
 // forEach to generate/update HTML on our table
@@ -218,6 +217,7 @@ function generateTableRows(arrOfObjects) {
   });
 }
 
+// DELETE BUTTONS EVENT LISTENERS
 // Event Delegation in the <tbody> for Deletions
 tableBody.addEventListener("click", (e) => {
   // If we clicked on a deleteBtn in our table
@@ -236,20 +236,20 @@ tableBody.addEventListener("click", (e) => {
     if (indexToDelete === -1) {
       console.log("No matching object found");
     } else {
+      const deleteThisTrackerItem = trackerObjects[indexToDelete]; // Object we want to delete at this specific index.
       const deleteThisAmount = trackerObjects[indexToDelete].amount;
 
       // If the given object's type is income
-      if (trackerObjects[indexToDelete].type === "Income") {
-        totalIncome -= deleteThisAmount;
-        totalIncomeDisplay.innerHTML = totalIncome;
+      if (deleteThisTrackerItem.type === "Income") {
+        budgetManager.addIncome(-deleteThisTrackerItem.amount)
+        totalIncomeDisplay.innerHTML = budgetManager.totalIncome;
       } else {
         // Else, if the object's type is expense
-        totalExpenses -= deleteThisAmount;
-        totalExpensesDisplay.innerHTML = totalExpenses;
+        budgetManager.addExpense(-deleteThisTrackerItem.amount) // Putting a negative here will be "minus and negative", therefore we're adding, which is removing the negative number added by the expense.
+        totalExpensesDisplay.innerHTML = budgetManager.totalExpenses;
       }
 
-      balance = totalIncome + totalExpenses;
-      balanceDisplay.innerHTML = balance;
+      balanceDisplay.innerHTML = budgetManager.calcBalance();
 
       // If there is a matching ID found, we delete the object with that index from the array with splice(), then generate the Table again.
       trackerObjects.splice(indexToDelete, 1);
@@ -284,6 +284,13 @@ const acceptedKeys = [
   "ArrowRight",
   "ArrowUp",
   "ArrowDown",
+  'c',
+  'C',
+  'v',
+  'V',
+  'a',
+  'A',
+  'Ctrl'
 ];
 
 // FORM VALIDATION
@@ -294,3 +301,25 @@ amountInput.addEventListener("keydown", (e) => {
     e.preventDefault(); // Won't allow key to be pressed
   }
 });
+
+// BUDGET CLASS to replace global variables
+class Budget {
+  constructor() {
+    this.totalIncome = 0;
+    this.totalExpenses = 0;
+  }
+
+  addIncome(amount) {
+    this.totalIncome += amount;
+  }
+
+  addExpense(amount) {
+    this.totalExpenses += amount;
+  }x
+
+  calcBalance() {
+    return this.totalIncome + this.totalExpenses;
+  }
+}
+
+const budgetManager = new Budget();
