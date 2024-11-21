@@ -237,3 +237,14 @@ let balance = totalIncome - totalExpenses;
 balanceDisplay.innerHTML = balance;
 totalIncomeDisplay.innerHTML = totalIncome;
 totalExpensesDisplay.innerHTML = totalExpenses;
+
+// number Keys Array to iterate over
+const numKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+// Ensures user can't type anything but numbers in this input
+amountInput.addEventListener('keydown', (e) => {
+  // If the released key isn't a number
+  if (!numKeys.includes(e.key)) {
+    e.preventDefault(); // Won't allow key to be pressed
+  }
+})
