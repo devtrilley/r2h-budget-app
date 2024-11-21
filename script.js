@@ -18,6 +18,12 @@ const nameInput = document.querySelector(".name-input");
 const amountInput = document.querySelector(".amount-input");
 const descInput = document.querySelector(".desc-input");
 
+// Error Messages for Form Validation
+const dateErrorMessage = document.querySelector(".date-error-message");
+const nameErrorMessage = document.querySelector(".name-error-message");
+const amountErrorMessage = document.querySelector(".amount-error-message");
+const descErrorMessage = document.querySelector(".desc-error-message");
+
 // Balance Card Number Elements
 const balanceDisplay = document.querySelector(".balance-display");
 const totalIncomeDisplay = document.querySelector(".total-income-display");
@@ -84,27 +90,50 @@ expenseBtn.addEventListener("click", () => {
 let idCounter = 1;
 
 addBtn.addEventListener("click", () => {
+  // Booleans checking if inputs are valid
+  let isDateValid = false;
+  let isNameValid = false;
+  let isAmountValid = false;
+  let isDescValid = false;
+
   if (dateInput.value === "" || dateInput.value === null) {
-    alert("Please enter a valid date.");
-    return;
+    dateErrorMessage.innerHTML = "Please enter a valid date.";
+    isDateValid = false; // If the value is invalid, then the boolean matches
+  } else {
+    dateErrorMessage.innerHTML = "";
+    isDateValid = true; // If the value is valid/acceptable, the boolean turns true
   }
 
   if (nameInput.value === "" || nameInput.value === null) {
-    alert("Please enter a valid name.");
-    return;
+    nameErrorMessage.innerHTML = "Please enter a valid name.";
+    isNameValid = false; // If the value is invalid, then the boolean matches
+  } else {
+    nameErrorMessage.innerHTML = "";
+    isNameValid = true; // If the value is valid/acceptable, the boolean turns true
   }
 
   if (amountInput.value === "" || amountInput.value === null) {
-    alert("Please enter a valid amount.");
-    return;
+    amountErrorMessage.innerHTML = "Please enter a valid amount.";
+    isAmountValid = false; // If the value is invalid, then the boolean matches
+  } else {
+    amountErrorMessage.innerHTML = "";
+    isAmountValid = true; // If the value is valid/acceptable, the boolean turns true
   }
 
   if (descInput.value === "" || descInput.value === null) {
-    alert("Please enter a valid description.");
-    return;
+    descErrorMessage.innerHTML = "Please enter a valid description.";
+    isDescValid = false; // If the value is invalid, then the boolean matches
+  } else {
+    descErrorMessage.innerHTML = "";
+    isDescValid = true; // If the value is valid/acceptable, the boolean turns true
   }
 
-  let newObj = {
+  // If any of the booleans are invalid, stop the function, keeping up from appending a new tracker item
+  if (!isDateValid || !isNameValid || !isAmountValid || !isDescValid) {
+    return
+  };
+
+  let newObj = { 
     // Ternary operator to figure out whether trackerItem is an income or expense
     id: idCounter, //ID for each object so we are able to delete them in grid
     // If typeIsIncome, then display so. Otherwise, it's expenses.
@@ -239,14 +268,29 @@ totalIncomeDisplay.innerHTML = totalIncome;
 totalExpensesDisplay.innerHTML = totalExpenses;
 
 // acceptedKeys Array to iterate over. All keys we'll allow someone to type in our amount input
-const acceptedKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'Backspace', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'];
+const acceptedKeys = [
+  "0",
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "Backspace",
+  "ArrowLeft",
+  "ArrowRight",
+  "ArrowUp",
+  "ArrowDown",
+];
 
 // FORM VALIDATION
 // Ensures user can't type anything but accepted keys (numbers & backspace) in this input
-amountInput.addEventListener('keydown', (e) => {
+amountInput.addEventListener("keydown", (e) => {
   // If the released key isn't a number
   if (!acceptedKeys.includes(e.key)) {
     e.preventDefault(); // Won't allow key to be pressed
   }
 });
-

@@ -73,3 +73,7 @@ main {
 
 .type-display {
 }
+
+.error-message {
+  color: red;
+}
