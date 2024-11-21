@@ -238,13 +238,15 @@ balanceDisplay.innerHTML = balance;
 totalIncomeDisplay.innerHTML = totalIncome;
 totalExpensesDisplay.innerHTML = totalExpenses;
 
-// number Keys Array to iterate over
-const numKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+// acceptedKeys Array to iterate over. All keys we'll allow someone to type in our amount input
+const acceptedKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'Backspace', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'];
 
-// Ensures user can't type anything but numbers in this input
+// FORM VALIDATION
+// Ensures user can't type anything but accepted keys (numbers & backspace) in this input
 amountInput.addEventListener('keydown', (e) => {
   // If the released key isn't a number
-  if (!numKeys.includes(e.key)) {
+  if (!acceptedKeys.includes(e.key)) {
     e.preventDefault(); // Won't allow key to be pressed
   }
-})
+});
+
