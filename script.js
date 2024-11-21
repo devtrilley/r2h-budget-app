@@ -127,7 +127,8 @@ addBtn.addEventListener("click", () => {
   }
 
   // We add these since expenses is a negative number
-  balanceDisplay.innerHTML = totalIncome + totalExpenses; 
+  balance = totalIncome + totalExpenses
+  balanceDisplay.innerHTML = balance; 
   totalIncomeDisplay.innerHTML = totalIncome;
   totalExpensesDisplay.innerHTML = totalExpenses;
 });
@@ -185,7 +186,6 @@ tableBody.addEventListener("click", (e) => {
   if (e.target.matches(".delete-btn")) {
     // ID of the deleteBtn we clicked
     const deleteThisId = Number(e.target.id); //
-    console.log(typeof deleteThisId);
 
     // Finding the index of trackerObjects that has an object with a matching ID to deleteThisId.
     const indexToDelete = trackerObjects.findIndex((object) => {
@@ -198,6 +198,22 @@ tableBody.addEventListener("click", (e) => {
     if (indexToDelete === -1) {
       console.log("No matching object found");
     } else {
+      const deleteThisAmount = trackerObjects[indexToDelete].amount;
+
+      // If the given object's type is income
+      if (trackerObjects[indexToDelete].type === 'Income') {
+        totalIncome -= deleteThisAmount;
+        totalIncomeDisplay.innerHTML = totalIncome;
+      } else {
+        // Else, if the object's type is expense
+        totalExpenses -= deleteThisAmount;
+        totalExpensesDisplay.innerHTML = totalExpenses;
+      }
+
+
+      balance = totalIncome + totalExpenses;
+      balanceDisplay.innerHTML = balance;
+
       // If there is a matching ID found, we delete the object with that index from the array with splice(), then generate the Table again.
       trackerObjects.splice(indexToDelete, 1);
       generateTableRows(trackerObjects);
