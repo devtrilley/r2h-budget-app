@@ -31,24 +31,25 @@ const tableBody = document.querySelector(".table-body");
 let typeIsIncome = true;
 
 const trackerObjects = [
-  {
-    id: 1000000, // Placeholder ID
-    type: "Expense",
-    date: "11/26/2024",
-    name: "Rent",
-    amount: 900,
-    description: "Fixed expense.",
-    delete: '<button class="delete-btn" id="1000000">Delete</button>',
-  },
-  {
-    id: 1000001, // Placeholder ID
-    type: "Income",
-    date: "11/23/2024",
-    name: "Paycheck",
-    amount: 1050,
-    description: "Weekly EP pay.",
-    delete: '<button class="delete-btn" id="1000001">Delete</button>',
-  },
+  // Temporarily commented out to work on number displays
+  // {
+  //   id: 1000000, // Placeholder ID
+  //   type: "Expense",
+  //   date: "11/26/2024",
+  //   name: "Rent",
+  //   amount: 900,
+  //   description: "Fixed expense.",
+  //   delete: '<button class="delete-btn" id="1000000">Delete</button>',
+  // },
+  // {
+  //   id: 1000001, // Placeholder ID
+  //   type: "Income",
+  //   date: "11/23/2024",
+  //   name: "Paycheck",
+  //   amount: 1050,
+  //   description: "Weekly EP pay.",
+  //   delete: '<button class="delete-btn" id="1000001">Delete</button>',
+  // },
 ];
 
 // Generating the Table Rows as soon as the page loads, therefore no need for hard coded HTML
@@ -96,7 +97,7 @@ addBtn.addEventListener("click", () => {
     return;
   }
 
-  trackerObjects.push({
+  let newObj = {
     // Ternary operator to figure out whether trackerItem is an income or expense
     id: idCounter, //ID for each object so we are able to delete them in grid
     // If typeIsIncome, then display so. Otherwise, it's expenses.
@@ -104,16 +105,31 @@ addBtn.addEventListener("click", () => {
     date: dateInput.value,
     name: nameInput.value,
     // Makes expenses amount a negative number.
-    amount: typeIsIncome ? amountInput.value : amountInput.value * -1,
+    amount: typeIsIncome
+      ? Number(amountInput.value)
+      : Number(amountInput.value * -1),
     description: descInput.value,
     delete: `<button class="delete-btn" id="${idCounter}">Delete</button>`,
-  });
+  };
+
+  trackerObjects.push(newObj);
 
   tableBody.innerHTML = "";
 
   generateTableRows(trackerObjects);
 
   idCounter++;
+
+  if (typeIsIncome) {
+    totalIncome += newObj.amount;
+  } else if (!typeIsIncome) {
+    totalExpenses += newObj.amount;
+  }
+
+  // We add these since expenses is a negative number
+  balanceDisplay.innerHTML = totalIncome + totalExpenses; 
+  totalIncomeDisplay.innerHTML = totalIncome;
+  totalExpensesDisplay.innerHTML = totalExpenses;
 });
 
 // forEach to generate/update HTML on our table
@@ -163,14 +179,6 @@ function generateTableRows(arrOfObjects) {
   });
 }
 
-/*
-- when i click the delete button
-- we pick the row/object that delete button is apart of
-- then we delete that object from our array
-- then generate the HTML again
-
-*/
-
 // Event Delegation in the <tbody> for Deletions
 tableBody.addEventListener("click", (e) => {
   // If we clicked on a deleteBtn in our table
@@ -196,3 +204,12 @@ tableBody.addEventListener("click", (e) => {
     }
   }
 });
+
+// Income/Expense Variables & Dynamic Display
+let totalIncome = 0;
+let totalExpenses = 0;
+let balance = totalIncome - totalExpenses;
+
+balanceDisplay.innerHTML = balance;
+totalIncomeDisplay.innerHTML = totalIncome;
+totalExpensesDisplay.innerHTML = totalExpenses;
