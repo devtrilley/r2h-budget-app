@@ -27,9 +27,16 @@ const totalExpensesDisplay = document.querySelector(".total-expenses-display");
 const trackerTable = document.querySelector(".tracker-table");
 const tableBody = document.querySelector(".table-body");
 
-//
+// Boolean determining if input is Income or and Expense
 let typeIsIncome = true;
 
+// Array holding all income tracker items
+const incomeArray = [];
+
+// Array holding all expense tracker items
+const expenseArray = [];
+
+// Both Income and Expenses Array
 const trackerObjects = [
   // Temporarily commented out to work on number displays
   // {
@@ -122,13 +129,15 @@ addBtn.addEventListener("click", () => {
 
   if (typeIsIncome) {
     totalIncome += newObj.amount;
+    incomeArray.push(newObj); // Push our newObj into incomeArray
   } else if (!typeIsIncome) {
     totalExpenses += newObj.amount;
+    expenseArray.push(newObj); // Push our newObj into expenseArray
   }
 
   // We add these since expenses is a negative number
-  balance = totalIncome + totalExpenses
-  balanceDisplay.innerHTML = balance; 
+  balance = totalIncome + totalExpenses;
+  balanceDisplay.innerHTML = balance;
   totalIncomeDisplay.innerHTML = totalIncome;
   totalExpensesDisplay.innerHTML = totalExpenses;
 });
@@ -201,7 +210,7 @@ tableBody.addEventListener("click", (e) => {
       const deleteThisAmount = trackerObjects[indexToDelete].amount;
 
       // If the given object's type is income
-      if (trackerObjects[indexToDelete].type === 'Income') {
+      if (trackerObjects[indexToDelete].type === "Income") {
         totalIncome -= deleteThisAmount;
         totalIncomeDisplay.innerHTML = totalIncome;
       } else {
@@ -209,7 +218,6 @@ tableBody.addEventListener("click", (e) => {
         totalExpenses -= deleteThisAmount;
         totalExpensesDisplay.innerHTML = totalExpenses;
       }
-
 
       balance = totalIncome + totalExpenses;
       balanceDisplay.innerHTML = balance;
