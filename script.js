@@ -45,24 +45,24 @@ const expenseArray = [];
 // Both Income and Expenses Array
 const trackerObjects = [
   // Temporarily commented out to work on number displays
-  // {
-  //   id: 1000000, // Placeholder ID
-  //   type: "Expense",
-  //   date: "11/26/2024",
-  //   name: "Rent",
-  //   amount: 900,
-  //   description: "Fixed expense.",
-  //   delete: '<button class="delete-btn" id="1000000">Delete</button>',
-  // },
-  // {
-  //   id: 1000001, // Placeholder ID
-  //   type: "Income",
-  //   date: "11/23/2024",
-  //   name: "Paycheck",
-  //   amount: 1050,
-  //   description: "Weekly EP pay.",
-  //   delete: '<button class="delete-btn" id="1000001">Delete</button>',
-  // },
+  {
+    id: 1000000, // Placeholder ID
+    type: "Expense",
+    date: "11/26/2024",
+    name: "Rent",
+    amount: 900,
+    description: "Fixed expense.",
+    delete: '<button class="btn delete-btn" id="1000000">Delete</button>',
+  },
+  {
+    id: 1000001, // Placeholder ID
+    type: "Income",
+    date: "11/23/2024",
+    name: "Paycheck",
+    amount: 1050,
+    description: "Weekly EP pay.",
+    delete: '<button class="btn delete-btn" id="1000001">Delete</button>',
+  },
 ];
 
 // Generating the Table Rows as soon as the page loads, therefore no need for hard coded HTML
@@ -145,7 +145,7 @@ addBtn.addEventListener("click", () => {
       ? Number(amountInput.value)
       : Number(amountInput.value * -1),
     description: descInput.value,
-    delete: `<button class="delete-btn" id="${idCounter}">Delete</button>`,
+    delete: `<button class="btn delete-btn" id="${idCounter}">Delete</button>`,
   };
 
   trackerObjects.push(newObj);
@@ -241,11 +241,11 @@ tableBody.addEventListener("click", (e) => {
 
       // If the given object's type is income
       if (deleteThisTrackerItem.type === "Income") {
-        budgetManager.addIncome(-deleteThisTrackerItem.amount)
+        budgetManager.addIncome(-deleteThisTrackerItem.amount);
         totalIncomeDisplay.innerHTML = budgetManager.totalIncome;
       } else {
         // Else, if the object's type is expense
-        budgetManager.addExpense(-deleteThisTrackerItem.amount) // Putting a negative here will be "minus and negative", therefore we're adding, which is removing the negative number added by the expense.
+        budgetManager.addExpense(-deleteThisTrackerItem.amount); // Putting a negative here will be "minus and negative", therefore we're adding, which is removing the negative number added by the expense.
         totalExpensesDisplay.innerHTML = budgetManager.totalExpenses;
       }
 
@@ -259,6 +259,7 @@ tableBody.addEventListener("click", (e) => {
 });
 
 // Income/Expense Variables & Dynamic Display
+// ** CHECK IF YOU SHOULD DELETE THESE **
 let totalIncome = 0;
 let totalExpenses = 0;
 let balance = totalIncome - totalExpenses;
@@ -284,13 +285,13 @@ const acceptedKeys = [
   "ArrowRight",
   "ArrowUp",
   "ArrowDown",
-  'c',
-  'C',
-  'v',
-  'V',
-  'a',
-  'A',
-  'Ctrl'
+  "c",
+  "C",
+  "v",
+  "V",
+  "a",
+  "A",
+  "Ctrl",
 ];
 
 // FORM VALIDATION
@@ -315,7 +316,7 @@ class Budget {
 
   addExpense(amount) {
     this.totalExpenses += amount;
-  }x
+  }
 
   calcBalance() {
     return this.totalIncome + this.totalExpenses;

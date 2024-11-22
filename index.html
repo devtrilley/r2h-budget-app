@@ -10,15 +10,15 @@
     <main>
       <div class="card balance-card">
         <h2 class="card__header">BALANCE</h2>
-        <h3 class="card__num-header balance-display">$2000</h3>
+        <h3 class="card__num-header balance-display"></h3>
         <div class="totals-container">
           <div class="total-income-container">
             <h4>Total Income:</h4>
-            <p class="total-income-display">$10000</p>
+            <p class="total-income-display"></p>
           </div>
           <div class="total-expenses-container">
             <h4>Total Expenses:</h4>
-            <p class="total-expenses-display">$8000</p>
+            <p class="total-expenses-display"></p>
           </div>
         </div>
       </div>
@@ -40,12 +40,13 @@
             <tbody class="table-body"></tbody>
           </table>
         </div>
+        
         <div class="tracker-inputs">
-          <p class="type-display">The current type is: Income</p>
           <div class="button-container">
-            <button class="income-btn">Income</button>
-            <button class="expense-btn">Expense</button>
+            <button class="btn income-btn">Income</button>
+            <button class="btn expense-btn">Expense</button>
           </div>
+          <p class="type-display" style="text-align: center;">The current type is: Income</p>
 
           <div class="input-label-pair">
             <label for="date-input">Date</label>
@@ -92,7 +93,7 @@
             <p class="error-message desc-error-message"></p>
           </div>
           <div class="add-btn-container">
-            <button class="add-btn">Add</button>
+            <button class="btn add-btn">Add</button>
           </div>
         </div>
       </div>

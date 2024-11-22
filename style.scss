@@ -1,28 +1,40 @@
 @import url("https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap");
-.card {
-  background-color: #fffaec;
-  margin-bottom: 4rem;
+
+$primary-color: rgb(46, 168, 234);
+$delete-red: rgb(214, 69, 69);;
+
+@mixin gradient($color1, $color2) {
+  background: linear-gradient(90deg, $color1, $color2);
+}
+
+@mixin backShadow() {
   box-shadow: 0px 0px 10px rgb(43, 43, 43);
 }
 
+.card {
+  background-color: #fffaec;
+  margin-bottom: 4rem;
+  @include backShadow();
+}
+
 .card__header {
-  color: rgb(46, 168, 234);
+  color: $primary-color;
 }
 
 .btn {
-  background-color: rgb(46, 168, 234);
+  background-color: $primary-color;
   color: white;
   padding: 0.75rem 2rem;
   border: none;
   border-radius: 0.25rem;
   cursor: pointer;
-  box-shadow: 0px 0px 10px rgb(43, 43, 43);
-}
-.btn:hover {
-  opacity: 0.9;
-}
-.btn:active {
-  opacity: 0.8;
+  &:hover {
+    opacity: 0.9;
+  }
+  &:active {
+    opacity: 0.8;
+  }
+  @include backShadow();
 }
 
 /* GENERAL STYLES */
@@ -34,7 +46,7 @@
 }
 
 body {
-  background: linear-gradient(90deg, #8551d3, #5042be);
+  @include gradient(#8551d3, #5042be);
 }
 
 main {
@@ -46,6 +58,7 @@ main {
 }
 
 /* BALANCE CARD STYLES */
+
 .balance-card {
   border: 1px solid;
   display: flex;
@@ -54,22 +67,22 @@ main {
   width: 50%;
   border-radius: 1rem;
   padding: 2rem;
-}
-.balance-card .card__header {
-  font-size: 2.25rem;
-}
-.balance-card .card__num-header {
-  font-size: 3rem;
+  .card__header {
+    font-size: 2.25rem;
+  }
+  .card__num-header {
+    font-size: 3rem;
+  }
 }
 
 /* Makes container at bottom of balance-card a flexbox */
 .totals-container {
   display: flex;
-}
-.totals-container h4,
-.totals-container .total-income-display,
-.totals-container .total-expenses-display {
-  font-size: 1.5rem;
+  h4,
+  .total-income-display,
+  .total-expenses-display {
+    font-size: 1.5rem;
+  }
 }
 
 .total-income-container {
@@ -83,13 +96,16 @@ main {
 }
 
 /* TRACKER CONTAINER STYLES */
+
 .tracker-container {
   display: flex;
   justify-content: space-around;
+  // border: 1px solid red;
   width: 100%;
   padding-top: 1rem;
 }
 
+// Left Side Tracker Table
 .tracker-table-container {
   display: flex;
   flex-direction: column;
@@ -97,67 +113,69 @@ main {
 }
 
 .tracker-table {
-  box-shadow: 0px 0px 10px rgb(43, 43, 43);
+  @include backShadow();
   border-collapse: collapse;
+  // border-spacing: 1rem;
   font-size: 1.25rem;
   width: 100%;
   text-align: left;
-}
-.tracker-table tr {
-  background-color: red;
-}
-.tracker-table th {
-  background-color: rgb(46, 168, 234);
-  font-size: 1.5rem;
-  padding: 1rem;
-}
-.tracker-table td {
-  background-color: #fffaec;
-  padding: 0.5rem 0;
-  padding: 1rem;
-  border-top: 1px solid black;
-}
-.tracker-table .delete-btn {
-  background-color: rgb(214, 69, 69);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  box-shadow: 0px 0px 10px rgb(145, 145, 145); /*Slightly less than backShadow()*/
+  tr {
+    // padding-bottom: 2rem;
+    background-color: red;
+  }
+  th {
+    background-color: $primary-color;
+    font-size: 1.5rem;
+    padding: 1rem;
+  }
+  td {
+    background-color: #fffaec;
+    padding: 0.5rem 0;
+    padding: 1rem;
+    border-top: 1px solid black;
+  }
+  .delete-btn {
+    background-color: $delete-red;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    box-shadow: 0px 0px 10px rgb(145, 145, 145); /*Slightly less than backShadow()*/
+  }
 }
 
+// Right Side Tracker Inputs
 .tracker-inputs {
   display: flex;
   flex-direction: column;
   width: 45%;
+  .type-display {
+    text-align: center;
+  }
 }
-.tracker-inputs .type-display {
-  text-align: center;
-}
-
 .button-container {
   display: flex;
   justify-content: center;
+  // border: 1px solid brown;
   gap: 3%;
   margin-top: 0.5rem;
   margin-bottom: 0.75rem;
+  .income-btn,
+  .expense-btn {
+    width: 100%;
+    font-size: 1.25rem;
+  }
 }
-.button-container .income-btn,
-.button-container .expense-btn {
-  width: 100%;
-  font-size: 1.25rem;
-}
-
 .input-label-pair {
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
   font-size: 1.25rem;
-}
-.input-label-pair input {
-  padding: 0.75rem 1rem;
-  width: 100%;
-  font-size: 1.25rem;
+  input {
+    padding: 0.75rem 1rem;
+    width: 100%;
+    font-size: 1.25rem;
+  }
 }
 
 .block-divider {
@@ -167,18 +185,18 @@ main {
 .add-btn-container {
   display: flex;
   justify-content: center;
-}
-.add-btn-container .add-btn {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  font-size: 1.25rem;
-  background-color: rgb(46, 168, 234);
-  color: white;
-  border: none;
+  .add-btn {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1.25rem;
+    background-color: $primary-color;
+    color: white;
+    border: none;
+  }
 }
 
 .delete-btn {
-  box-shadow: 0px 0px 10px rgb(43, 43, 43);
+  @include backShadow();
   width: 100%;
   font-size: 1rem;
 }
@@ -191,5 +209,3 @@ main {
 .error-message {
   color: red;
 }
-
-/*# sourceMappingURL=style.css.map */
