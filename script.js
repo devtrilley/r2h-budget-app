@@ -44,25 +44,7 @@ const expenseArray = [];
 
 // Both Income and Expenses Array
 const trackerObjects = [
-  // Temporarily commented out to work on number displays
-  {
-    id: 1000000, // Placeholder ID
-    type: "Expense",
-    date: "11/26/2024",
-    name: "Rent",
-    amount: 900,
-    description: "Fixed expense.",
-    delete: '<button class="btn delete-btn" id="1000000">Delete</button>',
-  },
-  {
-    id: 1000001, // Placeholder ID
-    type: "Income",
-    date: "11/23/2024",
-    name: "Paycheck",
-    amount: 1050,
-    description: "Weekly EP pay.",
-    delete: '<button class="btn delete-btn" id="1000001">Delete</button>',
-  },
+  // Where we push our tracker items
 ];
 
 // Generating the Table Rows as soon as the page loads, therefore no need for hard coded HTML
@@ -190,7 +172,7 @@ function generateTableRows(arrOfObjects) {
 
     // Amount cell and it's value change
     let amountCell = document.createElement("td");
-    amountCell.innerHTML = trackerItem.amount;
+    amountCell.innerHTML = `$${trackerItem.amount}`;
 
     // Description cell and it's value change
     let descriptionCell = document.createElement("td");
@@ -264,12 +246,13 @@ let totalIncome = 0;
 let totalExpenses = 0;
 let balance = totalIncome - totalExpenses;
 
-balanceDisplay.innerHTML = balance;
-totalIncomeDisplay.innerHTML = totalIncome;
-totalExpensesDisplay.innerHTML = totalExpenses;
+balanceDisplay.innerHTML = `$${balance}`;
+totalIncomeDisplay.innerHTML = `$${totalIncome}`;
+totalExpensesDisplay.innerHTML = `$${totalExpenses}`;
 
 // acceptedKeys Array to iterate over. All keys we'll allow someone to type in our amount input
 const acceptedKeys = [
+  ".",
   "0",
   "1",
   "2",

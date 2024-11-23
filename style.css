@@ -15,6 +15,7 @@
   padding: 0.75rem 2rem;
   border: none;
   border-radius: 0.25rem;
+  font-weight: bold;
   cursor: pointer;
   box-shadow: 0px 0px 10px rgb(43, 43, 43);
 }
@@ -34,7 +35,7 @@
 }
 
 body {
-  background: linear-gradient(90deg, #8551d3, #5042be);
+  background: linear-gradient(90deg, #d33dea, #5042be);
 }
 
 main {
@@ -102,6 +103,7 @@ main {
   font-size: 1.25rem;
   width: 100%;
   text-align: left;
+  border-radius: 20%;
 }
 .tracker-table tr {
   background-color: red;
@@ -110,6 +112,7 @@ main {
   background-color: rgb(46, 168, 234);
   font-size: 1.5rem;
   padding: 1rem;
+  color: white;
 }
 .tracker-table td {
   background-color: #fffaec;
@@ -154,10 +157,17 @@ main {
   margin-bottom: 1rem;
   font-size: 1.25rem;
 }
+.input-label-pair label {
+  color: white;
+  font-weight: bold;
+}
 .input-label-pair input {
+  box-shadow: 0px 0px 10px rgb(43, 43, 43);
   padding: 0.75rem 1rem;
   width: 100%;
   font-size: 1.25rem;
+  border: none;
+  border-radius: 0.5rem;
 }
 
 .block-divider {
@@ -185,6 +195,7 @@ main {
 
 .type-display {
   font-size: 2rem;
+  font-weight: bold;
   color: white;
 }
 
